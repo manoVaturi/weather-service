@@ -1,0 +1,11 @@
+# Keep secrets and junk out of the build context (and therefore out of the image).
+# .gitignore does NOT apply to `docker build`; this file does.
+**/.env
+**/*.env
+.git
+.gitignore
+.venv
+**/__pycache__
+**/.pytest_cache
+Jenkinsfile
+*.md
