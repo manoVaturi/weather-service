@@ -16,7 +16,7 @@ pipeline {
     agent any
 
     environment {
-        // Binds the secure Jenkins credential directly to the system variable the CLI expects
+        // Binds the secure Jenkins credential directly to the system variable the CLI expectss
         GEMINI_API_KEY = credentials('GEMINI_API_KEY')
     }
     options {
