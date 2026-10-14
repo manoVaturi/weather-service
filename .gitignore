@@ -1,0 +1,23 @@
+# Secrets
+.env
+*.env
+*.pem
+*.key
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+crash.log
+*.tfvars
+!example.tfvars
+
+# Python
+.venv/
+__pycache__/
+.pytest_cache/
+
+# Editors / OS
+.idea/
+.vscode/
+.DS_Store
