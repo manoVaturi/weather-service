@@ -95,6 +95,27 @@ pipeline {
                 '''
             }
         }
+
+        stage('Update GitOps repo') {
+            when { branch 'main' }
+            steps {
+                withCredentials([gitUsernamePassword(credentialsId: 'gitops-writer')]) {
+                    sh 'rm -rf gitops && git clone --depth 1 https://github.com/manoVaturi/weatherapp-gitops.git gitops'
+                    dir('gitops') {
+                        script {
+                            def f = 'charts/weatherapp/values.yaml'
+                            writeFile file: f, text: readFile(f).replaceAll(/(?m)^  tag: .*/, "  tag: \"${env.IMAGE_TAG}\"")
+                        }
+                        sh '''
+                            git config user.name jenkins
+                            git config user.email jenkins@manovaturi.com
+                            git diff --quiet || { git commit -am "Bump weatherapp image to $IMAGE_TAG" && git push origin HEAD:main; }
+                        '''
+                    }
+                }
+            }
+            post { always { sh 'rm -rf gitops' } }
+        }
     }
 
     post {
