@@ -1,6 +1,7 @@
 // WeatherApp CI pipeline (declarative).
 // Flow: checkout -> test -> build -> scan (gate) -> push to ECR -> notify.
 // Deployment is NOT done here: Argo CD deploys from the gitops repo (Phase 6).
+// Webhook is protected by a GitHub shared secret (HMAC signature verified by Jenkins).
 
 def AWS_REGION = 'eu-west-1'
 def ECR_REGISTRY = '991776826412.dkr.ecr.eu-west-1.amazonaws.com'
