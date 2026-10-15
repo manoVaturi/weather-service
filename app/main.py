@@ -2,6 +2,7 @@ import os
 
 import requests
 from flask import Flask, jsonify, render_template, request
+from prometheus_client import Counter
 from prometheus_flask_exporter import PrometheusMetrics
 
 app = Flask(__name__, static_folder="static", template_folder="templates")
@@ -12,6 +13,12 @@ metrics.info(
     "weatherapp_info",
     "WeatherApp Info",
     version=os.getenv("APP_VERSION", "1.0.0"),
+)
+
+CITY_LOOKUPS = Counter(
+    "weather_city_lookups_total",
+    "Successful weather lookups per city",
+    ["city"],
 )
 
 DB_HOST = os.getenv("DB_HOST", "not-configured")
@@ -42,6 +49,7 @@ def get_weather():
         return jsonify({"error": f"City '{city}' not found"}), 404
 
     location = geo_res["results"][0]
+    CITY_LOOKUPS.labels(city=location.get("name", "unknown")).inc()
     lat = location["latitude"]
     lon = location["longitude"]
     loc_name = f"{location.get('name')}, {location.get('country', '')}"
