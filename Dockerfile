@@ -22,4 +22,4 @@ USER 10001
 EXPOSE 8000
 
 # Run Gunicorn with 2 workers and 4 threads
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "--workers", "2", "--threads", "4", "app.main:app"]
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "--workers", "1", "--threads", "8", "app.main:app"]
