@@ -1,0 +1,5 @@
+# Store and check out every text file with LF, on Windows and Linux (CRLF once changed a user_data hash and broke the shell scripts).
+* text=auto eol=lf
+*.png binary
+*.jpg binary
+*.ico binary
