@@ -1,0 +1,10 @@
+Flask==3.1.0
+gunicorn==23.0.0
+requests==2.32.3
+prometheus-flask-exporter==0.23.1
+pytest==8.3.4
+redis==5.2.1
+psycopg==3.3.6
+psycopg-binary==3.3.6
+pymongo==4.19.0
+dnspython==2.9.0
